@@ -95,27 +95,31 @@ class SortingRobot:
         return self._light == "ON"
 
     def sort(self):
-        for i in range(len(self._list)+1):
+        while(not self.light_is_on()):
+            self.set_light_on()
+            # print(f'before: {self.light_is_on()}')
             while(self.can_move_right()):
                 # print(self._list)
+                # input(self._list)
                 # print(self._item)
                 # print(self.compare_item())
-                if self.compare_item() == None:
-                    self.swap_item()
-                    self.move_right()
-                elif self.compare_item() == 1:
-                    self.move_right()
-                elif self.compare_item() == -1:
-                    self.swap_item()
-                    self.move_right()
-                else:
-                    self.move_right()
-
-            if self.compare_item() == None:
+                # if self.compare_item() == None:
+                #     self.swap_item()
+                #     self.move_right()
                 self.swap_item()
+                self.move_right()
+                if self.compare_item() == 1:
+                    self.set_light_off()
+                    # print(f'after: {self.light_is_on()}')
+                    self.swap_item()
+
+                self.move_left()
+                self.swap_item()
+                self.move_right()
 
             while(self.can_move_left()):
                 self.move_left()
+        print(self._time)
 
 
 if __name__ == "__main__":
